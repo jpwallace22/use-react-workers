@@ -1,4 +1,4 @@
-import { TRANSFERABLE_TYPE } from '../useWebWorker';
+import { TRANSFERABLE_TYPE } from '../useWorkerFunc';
 import jobRunner from './jobRunner';
 import { importScriptsFromDeps } from './importScriptsFromDeps';
 

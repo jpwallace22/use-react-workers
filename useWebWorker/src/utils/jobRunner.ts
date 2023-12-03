@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-restricted-globals */
-import { TRANSFERABLE_TYPE } from '../useWebWorker';
+import { TRANSFERABLE_TYPE } from '../useWorkerFunc';
 
 interface JobRunnerOptions {
   fn: Function;

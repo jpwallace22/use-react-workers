@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useWebWorker } from 'useWebWorker';
+import { useWebWorker, useWorkerFunc } from 'useWebWorker';
 import './App.css';
 import reactLogo from './assets/react.svg';
 
@@ -22,7 +22,8 @@ function infiniteLoop() {
 }
 
 function App() {
-  const [fibWorker, { status }] = useWebWorker(fib);
+  const [fibWorker, { status }] = useWorkerFunc(fib);
+  const [fibNumber] = useWebWorker(fib, 45);
 
   useEffect(() => {
     const loopInterval = setInterval(infiniteLoop, 100);
@@ -52,6 +53,7 @@ function App() {
         <p>
           <strong>Worker Status:</strong> {status}
         </p>
+        <p>Fib number: {fibNumber} </p>
       </div>
     </>
   );
