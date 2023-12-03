@@ -1,0 +1,17 @@
+src/
+example/
+website/
+
+node_modules/
+
+.rts2_cache_*
+.cache/
+
+.eslintrc
+.editorconfig
+.github/
+
+dist/*.map
+
+logo.png
+
