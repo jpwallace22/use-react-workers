@@ -4,14 +4,7 @@ import './App.css';
 import reactLogo from './assets/react.svg';
 
 function fib(n: number): number {
-  if (n <= 1) {
-    return n;
-  }
-
-  const result1 = fib(n - 1);
-  const result2 = fib(n - 2);
-
-  return result1 + result2;
+  return n <= 1 ? n : fib(n - 1) + fib(n - 2);
 }
 
 let turn = 0;
