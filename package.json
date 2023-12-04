@@ -14,14 +14,14 @@
   "scripts": {
     "preinstall": "npx only-allow yarn",
     "changeset": "changeset",
-    "hooks": "yarn workspace react-worker-hooks",
+    "hooks": "yarn workspace use-react-workers",
     "examples": "yarn workspace examples",
-    "lint": "eslint \"react-worker-hooks/**/*.{js,jsx,ts,tsx,mdx}\""
+    "lint": "eslint \"use-react-workers/**/*.{js,jsx,ts,tsx,mdx}\""
   },
   "private": true,
   "workspaces": [
     "examples",
-    "react-worker-hooks"
+    "use-react-workers"
   ],
   "author": "jpwallace22",
   "license": "MIT"

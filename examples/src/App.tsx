@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useWebWorker, useWorkerFunc } from 'react-worker-hooks';
+import { useWebWorker, useWorkerFunc } from 'use-react-workers';
 import './App.css';
 import reactLogo from './assets/react.svg';
 

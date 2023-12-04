@@ -1,13 +1,14 @@
 {
-  "name": "react-worker-hooks",
+  "name": "use-react-workers",
   "description": "React Hooks for Web Workers & Web Worker utilities",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "yarn clean && yarn test:types && vite build",
+    "build": "yarn clean && yarn test:types && vite build && yarn build:readme",
+    "build:readme": "cp ../README.md README.md",
     "clean": "rimraf ../dist",
     "dev": "vite build --watch",
     "test:types": "tsc",
@@ -31,7 +32,7 @@
   },
   "author": "jpwallace22",
   "license": "MIT",
-  "repository": "jpwallace22/react-worker-hooks",
+  "repository": "jpwallace22/use-react-workers",
   "keywords": [
     "use",
     "webWorker",
