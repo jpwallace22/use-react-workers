@@ -1,19 +1,32 @@
-## Requirements
+# Contributing
 
-- Node 14/npm ( [`nvm`](https://github.com/nvm-sh/nvm) is recommended )
-- yarn ( `npm install -g yarn`)
+First off, thank you. Contributions and improvements are always welcome!
 
-## Run `useWebWorker` Steps
+If you couldn't tell already `use-react-hooks` is a monorepo managed with a basic yarn workspaces.
+There are currently two top-level packages (`examples` and `use-react-hooks`). All of the hook go in
+`use-react-hooks` and the examples package is to test and show how it works.
 
-- open the `packages/useWebWorker` directory
-- run `yarn dev`
-- develop your own feature or fix
+A top-level docs package is soon to come!
 
-## Run `examples` Steps
+## Setup
 
-- open the `packages/useWebWorker` directory
-- run `yarn start`
+- Node -v 20.10.0 (`nvm use`)
+- yarn (`npm install yarn -g`)
+- install "node_modules" with (`yarn`)
 
-## How to debug
+## Dev
 
-- the `packages/examples` project is linked to the `packages/useWebWorker` build so you can test your changes immediately
+- run `yarn dev` on the root to concurrently run:
+  - all of the hooks in watch mode
+  - the example dev server
+- open the example page on [port 5173](http://localhost:5173/)
+- hack away
+
+## Build
+
+`yarn build`
+
+## Debug
+
+The `examples` project is linked to the `use-react-workers` build so you can test your changes immediately.
+There is currently not a debugging environment set up.

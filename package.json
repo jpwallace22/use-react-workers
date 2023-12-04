@@ -4,19 +4,22 @@
   "description": "React Hooks for Web Workers & Web Worker utilities",
   "devDependencies": {
     "@changesets/cli": "^2.13.1",
-    "eslint": "^8.54.0",
+    "concurrently": "^8.2.2",
+    "eslint": "^8.55.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.27.5",
-    "eslint-plugin-react": "7.32.2",
+    "eslint-plugin-react": "^7.33.2",
     "rimraf": "^5.0.5"
   },
   "scripts": {
     "preinstall": "npx only-allow yarn",
-    "changeset": "changeset",
+    "dev": "concurrently \"yarn hooks dev\" \"yarn examples dev\"",
+    "build": "yarn hooks build && yarn examples build",
     "hooks": "yarn workspace use-react-workers",
     "examples": "yarn workspace examples",
-    "lint": "eslint \"use-react-workers/**/*.{js,jsx,ts,tsx,mdx}\""
+    "lint": "eslint \"{use-react-workers,examples}/**/*.{js,jsx,ts,tsx,mdx}\"",
+    "lint:fix": "eslint \"{use-react-workers,examples}/**/*.{js,jsx,ts,tsx,mdx}\" --fix"
   },
   "private": true,
   "workspaces": [

@@ -20,6 +20,7 @@ export default defineConfig(async () => ({
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
+          dequal: 'dequal',
         },
       },
     },

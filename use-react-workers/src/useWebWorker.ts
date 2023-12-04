@@ -3,7 +3,6 @@ import { Controller, useWorkerFunc } from './useWorkerFunc';
 
 /**
  * Executes a function in [useWorkerFunc](./useWorkerFunc) and retrieves its result in React state.
- * @template T - The type of the function to be executed.
  * @param {T} func - The function to be executed in the web worker.
  * @param {...Parameters<T>} args - The arguments to be passed to the function.
  * @returns {[ReturnType<T> | null, Controller]} - An array containing the result of the function and a controller object.
