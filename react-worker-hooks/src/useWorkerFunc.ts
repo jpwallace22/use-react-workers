@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import createWorkerBlobUrl from './utils/createWorkerBlobUrl';
-import { useDeepCallback } from './hooks/useDeepCallback';
+import { useDeepCallback } from './utils/useDeepCallback';
 
 export enum WorkerStatus {
   IDLE = 'idle',
@@ -15,51 +15,57 @@ export enum TRANSFERABLE_TYPE {
   NONE = 'none',
 }
 
-export interface WorkerController {
+export interface Controller {
   status: WorkerStatus;
-  kill: () => void;
+  terminate: () => void;
 }
 
 interface Options {
   timeout?: number;
-  remoteDependencies?: string[];
-  autoTerminate?: boolean;
-  transferable?: TRANSFERABLE_TYPE;
+  remoteDependencies: string[];
+  autoTerminate: boolean;
+  transferable: TRANSFERABLE_TYPE;
 }
 
 interface Promise {
-  resolve?: (result: any | ErrorEvent) => void;
-  reject?: (result: any) => void;
+  resolve: (result: any | ErrorEvent) => void;
+  reject: (result: any) => void;
 }
 
-const defaultOptions = {
+const defaultOptions: Options = {
   timeout: undefined,
   remoteDependencies: [],
   autoTerminate: true,
   transferable: TRANSFERABLE_TYPE.AUTO,
 };
 
+const defaultPromise: Promise = {
+  resolve: () => null,
+  reject: () => null,
+};
+
 /**
- * @param {Function} fn the function to run with web worker
- * @param {Object} options useWorkerFunc option params
+ * @param {Function} func the function to run with web worker
+ * @param {Options} options useWorkerFunc option params
  */
-export const useWorkerFunc = <T extends (...fnArgs: any[]) => any>(
-  fn: T,
+export const useWorkerFunc = <T extends (...funcArgs: any[]) => any>(
+  func: T,
   options: Options = defaultOptions
-) => {
+): [typeof workerHook, Controller] => {
+  const { autoTerminate, transferable, remoteDependencies, timeout } = options;
+
   const [workerStatus, setWorkerStatus] = useState<WorkerStatus>(
     WorkerStatus.IDLE
   );
   const worker = useRef<Worker & { _url?: string }>();
-  const isRunning = useRef(false);
-  const promise = useRef<Promise>({});
+  const promise = useRef<Promise>(defaultPromise);
   const timeoutId = useRef<NodeJS.Timeout>();
 
   const killWorker = useCallback(() => {
     if (worker.current?._url) {
       worker.current.terminate();
       URL.revokeObjectURL(worker.current._url);
-      promise.current = {};
+      promise.current = defaultPromise;
       worker.current = undefined;
       clearTimeout(timeoutId.current);
     }
@@ -67,48 +73,41 @@ export const useWorkerFunc = <T extends (...fnArgs: any[]) => any>(
 
   const onWorkerEnd = useCallback(
     (status: WorkerStatus) => {
-      const terminate =
-        options.autoTerminate !== null
-          ? options.autoTerminate
-          : defaultOptions.autoTerminate;
-
-      if (terminate) {
+      if (autoTerminate) {
         killWorker();
       }
       setWorkerStatus(status);
     },
-    [options.autoTerminate, killWorker, setWorkerStatus]
+    [autoTerminate, killWorker, setWorkerStatus]
   );
 
   const generateWorker = useDeepCallback(() => {
-    const {
-      remoteDependencies = defaultOptions.remoteDependencies,
-      timeout = defaultOptions.timeout,
-      transferable = defaultOptions.transferable,
-    } = options;
+    const workerUrl = createWorkerBlobUrl(
+      func,
+      remoteDependencies,
+      transferable
+    );
 
-    const workerUrl = createWorkerBlobUrl(fn, remoteDependencies, transferable);
+    const webWorker: Worker & { _url?: string } = new Worker(workerUrl);
+    webWorker._url = workerUrl;
 
-    const newWorker: Worker & { _url?: string } = new Worker(workerUrl);
-    newWorker._url = workerUrl;
-
-    newWorker.onmessage = (e: MessageEvent) => {
+    webWorker.onmessage = (e: MessageEvent) => {
       const [status, result] = e.data as [WorkerStatus, ReturnType<T>];
 
       switch (status) {
         case WorkerStatus.IDLE:
-          promise.current.resolve?.(result);
+          promise.current.resolve(result);
           onWorkerEnd(WorkerStatus.IDLE);
           break;
         default:
-          promise.current.reject?.(result);
+          promise.current.reject(result);
           onWorkerEnd(WorkerStatus.ERROR);
           break;
       }
     };
 
-    newWorker.onerror = (e: ErrorEvent) => {
-      promise.current.reject?.(e);
+    webWorker.onerror = (e: ErrorEvent) => {
+      promise.current.reject(e);
       onWorkerEnd(WorkerStatus.ERROR);
     };
 
@@ -119,12 +118,11 @@ export const useWorkerFunc = <T extends (...fnArgs: any[]) => any>(
       }, timeout);
     }
 
-    return newWorker;
-  }, [fn, options, killWorker]);
+    return webWorker;
+  }, [func, options, killWorker]);
 
   const callWorker = useCallback(
     (...workerArgs: Parameters<T>) => {
-      const { transferable = defaultOptions.transferable } = options;
       return new Promise<ReturnType<T>>((resolve, reject) => {
         promise.current = {
           resolve,
@@ -147,55 +145,43 @@ export const useWorkerFunc = <T extends (...fnArgs: any[]) => any>(
         setWorkerStatus(WorkerStatus.RUNNING);
       });
     },
-    [setWorkerStatus, options]
+    [transferable]
   );
 
   const workerHook = useCallback(
-    (...fnArgs: Parameters<T>) => {
-      const terminate =
-        options.autoTerminate != null
-          ? options.autoTerminate
-          : defaultOptions.autoTerminate;
+    (...funcArgs: Parameters<T>) => {
+      try {
+        if (workerStatus === WorkerStatus.RUNNING) {
+          throw new Error(
+            '[useWorkerFunc] You can only run one instance of the worker at a time, if you want to run more than one in parallel, create another instance with the hook useWorkerFunc(). Read more: https://github.com/jpwallace22/react-worker-hooks'
+          );
+        }
+        if (autoTerminate || !worker.current) {
+          worker.current = generateWorker();
+        }
 
-      if (isRunning.current) {
-        /* eslint-disable-next-line no-console */
-        console.error(
-          '[useWorkerFunc] You can only run one instance of the worker at a time, if you want to run more than one in parallel, create another instance with the hook useWorkerFunc(). Read more: https://github.com/jpwallace22/useWorkerFunc'
-        );
-        return Promise.reject();
+        return callWorker(...funcArgs);
+      } catch (e) {
+        console.error(e);
+        return Promise.reject(`Web worker "${func.name}" is already running`);
       }
-      if (terminate || !worker.current) {
-        worker.current = generateWorker();
-      }
-
-      return callWorker(...fnArgs);
     },
-    [options.autoTerminate, generateWorker, callWorker]
+    [workerStatus, autoTerminate, callWorker, generateWorker, func]
   );
 
-  const killWorkerController = useCallback(() => {
+  const terminate = useCallback(() => {
     killWorker();
     setWorkerStatus(WorkerStatus.KILLED);
   }, [killWorker, setWorkerStatus]);
 
-  const workerController = {
+  const controller = {
     status: workerStatus,
-    kill: killWorkerController,
-  };
+    terminate,
+  } satisfies Controller;
 
   useEffect(() => {
-    isRunning.current = workerStatus === WorkerStatus.RUNNING;
-  }, [workerStatus]);
+    killWorker();
+  }, [killWorker]);
 
-  useEffect(
-    () => () => {
-      killWorker();
-    },
-    [killWorker]
-  );
-
-  return [workerHook, workerController] as [
-    typeof workerHook,
-    WorkerController
-  ];
+  return [workerHook, controller];
 };

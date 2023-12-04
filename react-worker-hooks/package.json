@@ -1,5 +1,6 @@
 {
-  "name": "useWebWorker",
+  "name": "react-worker-hooks",
+  "description": "React Hooks for Web Workers & Web Worker utilities",
   "version": "0.2.0",
   "source": "src/index.ts",
   "main": "dist/index.js",
@@ -11,6 +12,9 @@
     "dev": "vite build --watch",
     "test:types": "tsc",
     "link": "eslint src/ --ext .ts"
+  },
+  "dependencies": {
+    "dequal": "^1.0.0"
   },
   "peerDependencies": {
     "react": "^16.8.0"
@@ -25,19 +29,19 @@
     "vite": "^5.0.4",
     "vite-plugin-dts": "^3.6.4"
   },
-  "description": "useWebWorker() - Web worker using React hook",
   "author": "jpwallace22",
   "license": "MIT",
-  "repository": "jpwallace22/useWebWorker",
+  "repository": "jpwallace22/react-worker-hooks",
   "keywords": [
+    "use",
+    "webWorker",
     "react",
     "hooks",
+    "worker",
     "web worker",
     "blocking ui",
-    "javscript",
-    "background"
-  ],
-  "dependencies": {
-    "dequal": "^1.0.0"
-  }
+    "javascript",
+    "background",
+    "typescript"
+  ]
 }

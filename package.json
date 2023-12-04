@@ -1,7 +1,7 @@
 {
-  "name": "use-web-worker",
+  "name": "root",
   "version": "1.0.0",
-  "description": "⚛️ useWebWorker() - A React Style Web Worker",
+  "description": "React Hooks for Web Workers & Web Worker utilities",
   "devDependencies": {
     "@changesets/cli": "^2.13.1",
     "eslint": "^8.54.0",
@@ -14,26 +14,14 @@
   "scripts": {
     "preinstall": "npx only-allow yarn",
     "changeset": "changeset",
-    "worker": "yarn workspace useWebWorker",
-    "lint": "eslint \"useWebWorker/**/*.{js,jsx,ts,tsx,mdx}\"",
-    "examples": "yarn workspace examples"
+    "hooks": "yarn workspace react-worker-hooks",
+    "examples": "yarn workspace examples",
+    "lint": "eslint \"react-worker-hooks/**/*.{js,jsx,ts,tsx,mdx}\""
   },
   "private": true,
   "workspaces": [
     "examples",
-    "useWebWorker"
-  ],
-  "repository": "jpwallace22/useWebWorker",
-  "keywords": [
-    "useWebWorker",
-    "react",
-    "hooks",
-    "worker",
-    "web worker",
-    "blocking ui",
-    "javscript",
-    "background",
-    "typescript"
+    "react-worker-hooks"
   ],
   "author": "jpwallace22",
   "license": "MIT"

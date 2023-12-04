@@ -11,5 +11,6 @@ export const useDeepCallback = <T extends (...args: any[]) => any>(
     dependencies.current = newDependencies;
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return useCallback(callback, dependencies.current);
 };
