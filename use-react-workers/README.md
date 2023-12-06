@@ -8,7 +8,11 @@
 - Returns **Promise** instead of event-messages
 - Strongly Typed
 - Garbage collector web worker instance
-- Timeout, Remote Deps, terminate
+- Options:
+  - Timeout
+  - Remote Deps
+  - Terminate
+- No required bundler
 
 ## 💻 [Installation](https://www.npmjs.com/package/use-react-workers)
 
@@ -26,19 +30,25 @@ Web Workers have built in limitations. Before using this [hook](https://www.npmj
 
 ## 🔨 Import
 
-There are currently two hooks in the package depending on your use-case. Either:
+There are currently three hooks in the package depending on your use-case. Either:
 
-- useWorkerFunc
-- useWebWorker
-
-One returns the function so you can call the Web Worker on your own, and the other
-provides the value your return.
+- `useWorkerFunc`
+  - A function that runs in a web worker and returns a promise
+- `useWorkerState`
+  - A wrapper of useWorkerFunc that sets the return in state,
+    provides a new setter function, and exposes the controls as well
+- `useWorker`
+  - A web worker as an object to quickly and easy post messages and
+    use on `onmessage` subscription. Good for long running and constant
+    updating workers
 
 ```jsx
-import { useWebWorker, useWorkerFunc } from 'use-react-workers';
+import { useWorkerState, useWorkerFunc, useWorker } from 'use-react-workers';
 ```
 
 ## 🎬 Usage
+
+#### useWorkerFunc
 
 ```tsx
 import React from 'react';
@@ -65,11 +75,11 @@ const MyCoolComponent = () => {
 };
 ```
 
-OR
+#### useWorkerState
 
 ```tsx
 import React from 'react';
-import { useWebWorker } from 'use-react-workers';
+import { useWorkerState } from 'use-react-workers';
 
 // Heavy compute function
 function fibonacci(n: number): number {
@@ -77,9 +87,46 @@ function fibonacci(n: number): number {
 }
 
 const MyCoolComponent = () => {
-  const [result] = useWebWorker(fibonacci, 45); // Will not block the main thread
+  const defaultState = 0;
+  const [fib, setFib] = useWorkerState(fibonacci, defaultState); // Will not block the main thread
 
-  return <h1>{result ? `Fibonacci of 45: ${result}` : 'Calculating'}</h1>;
+  return (
+    <div>
+      <h1>{fib && fib}</h1>
+      <button onClick={() => setFib(45)}>Fibonacci of 45</button>
+    </div>
+  );
+};
+```
+
+#### useWorker
+
+```tsx
+import React from 'react';
+import { useWorkerState } from 'use-react-workers';
+
+// Long running function that we dont want blocked
+export const countByInput = (countBy: 1 | 2 | 5) => {
+  let seconds = countBy;
+  setInterval(() => {
+    postMessage(seconds);
+    seconds += countBy;
+  }, 1000);
+};
+
+const MyCoolComponent = () => {
+  const timer = useWorker(countByInput); // Will not block the main thread
+
+  timer.onMessage({ data } => console.log(data));
+
+  return (
+    <div>
+      <button onClick={() => timer.postMessage(1)}>Count By 1</button>
+      <button onClick={() => timer.postMessage(2)}>Count By 2</button>
+      <button onClick={() => timer.postMessage(5)}>Count By 5</button>
+      <button onClick={() => timer.terminate()}>End</button>
+    </div>
+  );
 };
 ```
 

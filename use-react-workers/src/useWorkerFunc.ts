@@ -1,30 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import createWorkerBlobUrl from './utils/createWorkerBlobUrl';
 import { useDeepCallback } from './utils/useDeepCallback';
+import { Options, TRANSFERABLE_TYPE, WorkerStatus } from './types';
 
-export enum WorkerStatus {
-  IDLE = 'idle',
-  RUNNING = 'running',
-  ERROR = 'error',
-  EXPIRED = 'expired',
-  KILLED = 'killed',
-}
-
-export enum TRANSFERABLE_TYPE {
-  AUTO = 'auto',
-  NONE = 'none',
-}
+// TODO
+/**
+ * I might be able to wrap this with the `useWorker` and reduce the overall
+ * size of the library
+ * ---
+ * At the bare minimum, there is some repeated logic in here that could probably
+ * make separate modules.
+ */
 
 export interface Controller {
   status: WorkerStatus;
   terminate: () => void;
-}
-
-interface Options {
-  timeout?: number;
-  remoteDependencies: string[];
-  autoTerminate: boolean;
-  transferable: TRANSFERABLE_TYPE;
 }
 
 interface Promise {
@@ -32,7 +22,7 @@ interface Promise {
   reject: (result: any) => void;
 }
 
-const defaultOptions: Options = {
+const defaultOptions = {
   timeout: undefined,
   remoteDependencies: [],
   autoTerminate: true,
@@ -52,7 +42,10 @@ export const useWorkerFunc = <T extends (...funcArgs: any[]) => any>(
   func: T,
   options: Options = defaultOptions
 ): [typeof workerHook, Controller] => {
-  const { autoTerminate, transferable, remoteDependencies, timeout } = options;
+  const { autoTerminate, transferable, remoteDependencies, timeout } = {
+    ...defaultOptions,
+    ...options,
+  };
 
   const [workerStatus, setWorkerStatus] = useState<WorkerStatus>(
     WorkerStatus.IDLE
@@ -153,7 +146,7 @@ export const useWorkerFunc = <T extends (...funcArgs: any[]) => any>(
       try {
         if (workerStatus === WorkerStatus.RUNNING) {
           throw new Error(
-            '[useWorkerFunc] You can only run one instance of the worker at a time, if you want to run more than one in parallel, create another instance with the hook useWorkerFunc(). Read more: https://github.com/jpwallace22/react-worker-hooks'
+            '[useWorkerFunc] You can only run one instance of the worker at a time, if you want to run more than one in parallel, create another instance with the hook useWorkerFunc(). Read more: https://github.com/jpwallace22/use-react-workers'
           );
         }
         if (autoTerminate || !worker.current) {
