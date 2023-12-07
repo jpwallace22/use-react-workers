@@ -17,6 +17,7 @@
     "dev": "concurrently \"yarn hooks dev\" \"yarn examples dev\"",
     "build": "yarn hooks build && yarn examples build",
     "hooks": "yarn workspace use-react-workers",
+    "docs": "yarn workspace documentation",
     "examples": "yarn workspace examples",
     "lint": "eslint \"{use-react-workers,examples}/**/*.{js,jsx,ts,tsx,mdx}\"",
     "lint:fix": "eslint \"{use-react-workers,examples}/**/*.{js,jsx,ts,tsx,mdx}\" --fix"
@@ -24,7 +25,8 @@
   "private": true,
   "workspaces": [
     "examples",
-    "use-react-workers"
+    "use-react-workers",
+    "documentation"
   ],
   "author": "jpwallace22",
   "license": "MIT"
