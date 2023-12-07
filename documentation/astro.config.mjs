@@ -1,27 +1,42 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
+import react from '@astrojs/react';
+
+import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
   integrations: [
     starlight({
       title: 'Use React Workers',
+
+      customCss: ['./src/tailwind.css'],
       social: {
         github: 'https://github.com/jpwallace22/use-react-workers',
       },
       sidebar: [
         {
-          label: 'Hooks',
+          label: 'Start Here',
           items: [
-            // Each item here is one entry in the navigation menu.
-            { label: 'Example Guide', link: '/hooks/example/' },
+            {
+              label: 'Overview',
+              link: '/start/overview/',
+            },
+            {
+              label: 'Installation',
+              link: '/start/installation/',
+            },
           ],
         },
         {
           label: 'Reference',
-          autogenerate: { directory: 'reference' },
+          autogenerate: {
+            directory: 'reference',
+          },
         },
       ],
     }),
+    react(),
+    tailwind(),
   ],
 });

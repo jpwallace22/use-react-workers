@@ -10,8 +10,17 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/react": "^3.0.7",
     "@astrojs/starlight": "^0.15.0",
+    "@astrojs/starlight-tailwind": "^2.0.1",
+    "@astrojs/tailwind": "^5.0.3",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
     "astro": "^4.0.1",
-    "sharp": "^0.32.5"
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "sharp": "^0.32.5",
+    "tailwindcss": "^3.0.24",
+    "use-react-workers": "^0.3.0"
   }
 }

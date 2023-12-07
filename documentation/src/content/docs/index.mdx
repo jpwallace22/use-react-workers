@@ -1,36 +1,65 @@
 ---
-title: Welcome to Starlight
-description: Get started building your docs site with Starlight.
-template: splash
-hero:
-  tagline: Congrats on setting up a new Starlight project!
-  image:
-    file: ../../assets/houston.webp
-  actions:
-    - text: Example Guide
-      link: /hooks/example/
-      icon: right-arrow
-      variant: primary
-    - text: Read the Starlight docs
-      link: https://starlight.astro.build
-      icon: external
+title: In a nutshell
+# description: Documentation for the use-react-workers NPM package for using web workers in React
+# template: doc
+# hero:
+#   tagline: A series of React Hooks for Web Workers
+#   image:
+#     dark: ../../assets/logo-white.svg
+#     light: ../../assets/logo-black.svg
+#   actions:
+#     - text: Documentation
+#       link: /hooks/example/
+#       icon: document
+#       variant: primary
+#     - text: Github
+#       link: https://www.github.com/jpwallace22/use-react-workers
+#       icon: github
 ---
 
-import { Card, CardGrid } from '@astrojs/starlight/components';
+import { Card, LinkCard } from '@astrojs/starlight/components';
+import { UseWorkerFunc } from '../../components/UseWorkerFunc.tsx';
 
-## Next steps
+<UseWorkerFunc client:only="react" class="not-content" />
 
-<CardGrid stagger>
-  <Card title="Update content" icon="pencil">
-    Edit `src/content/docs/index.mdx` to see this page change.
-  </Card>
-  <Card title="Add new content" icon="add-document">
-    Add Markdown or MDX files to `src/content/docs` to create new pages.
-  </Card>
-  <Card title="Configure your site" icon="setting">
-    Edit your `sidebar` and other config in `astro.config.mjs`.
-  </Card>
-  <Card title="Read the docs" icon="open-book">
-    Learn more in [the Starlight Docs](https://starlight.astro.build/).
-  </Card>
-</CardGrid>
+```tsx
+// MyRadComponent.tsx
+import React from 'react';
+import { useWorkerFunc } from 'use-react-workers';
+
+// Heavy compute function
+function fibonacci(n: number): number {
+  return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+
+const MyCoolComponent = () => {
+  const [fibWorker] = useWorkerFunc(fibonacci);
+
+  const withWorker = async () => {
+    const result = await fibWorker(45); // Will not block the main thread 🥳
+    console.log(result);
+  };
+
+  const without = () => {
+    const result = fibWorker(45); // Main thread is blocked 😪
+    console.log(result);
+  };
+
+  return (
+    <div className="flex gap-4">
+      <button className="btn" onClick={withWorker}>
+        With Worker
+      </button>
+      <button className="btn" onClick={handleClick}>
+        Without Worker
+      </button>
+    </div>
+  );
+};
+```
+
+<LinkCard
+  title="Read the Overview!"
+  description="Features, explanations, and code blocks, oh my!"
+  href="/start/overview"
+/>

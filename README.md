@@ -68,9 +68,14 @@ const MyCoolComponent = () => {
   };
 
   return (
-    <button type="button" onClick={handleClick}>
-      Run Fibonacci
-    </button>
+    <div className="flex gap-4">
+      <button type="button" onClick={handleClick}>
+        Run With Worker
+      </button>
+      <button type="button" onClick={handleClick}>
+        Run Without Worker
+      </button>
+    </div>
   );
 };
 ```
