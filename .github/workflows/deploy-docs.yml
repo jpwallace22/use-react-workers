@@ -32,9 +32,6 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Checkout
-        uses: actions/checkout@v4
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
@@ -42,15 +39,7 @@ jobs:
         uses: actions/upload-pages-artifact@v2
         with:
           path: docs/build
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
-
-      - name: Deploy Success Comment
-        uses: mshick/add-pr-comment@v2
-        if: ${{ steps.deploy.outcome == 'success' }}
-        with:
-          message: |
-            ## ✅ Deploy successful!
-            | View Docs | https://jpwallace22.github.io/use-react-workers |
-            |---|---|
