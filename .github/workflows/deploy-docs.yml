@@ -11,8 +11,11 @@ permissions:
   id-token: write
 
 jobs:
-  build:
-    name: Build 🛠️
+  docs:
+    name: Deploy Docs 📖
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -29,20 +32,17 @@ jobs:
       - name: Build
         run: yarn build
 
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: '~/docs/dist'
+          path: './docs/dist'
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3

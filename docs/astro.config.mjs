@@ -7,7 +7,6 @@ import tailwind from '@astrojs/tailwind';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://jpwallace22.github.io',
-  base: '/docs',
   integrations: [
     starlight({
       title: 'Use React Workers',
