@@ -30,6 +30,7 @@ jobs:
         run: yarn build
 
   deploy:
+    needs: build
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -42,7 +43,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
-          path: '~/docs/dist'
+          path: './docs/dist'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
