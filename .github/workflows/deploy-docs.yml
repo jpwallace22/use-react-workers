@@ -36,7 +36,7 @@ jobs:
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          folder: ./docs/dist
+          folder: ~/docs/dist
 
       - name: Deploy Success Comment
         uses: mshick/add-pr-comment@v2
