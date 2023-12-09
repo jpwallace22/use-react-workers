@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useWorkerFunc } from 'use-react-workers';
+import react from '../assets/react.svg';
 
 function fib(n: number): number {
   return n <= 1 ? n : fib(n - 1) + fib(n - 2);
@@ -25,7 +26,7 @@ export function UseWorkerFunc() {
     <div className="not-content my-8 mx-auto w-fit text-center">
       <div>
         <img
-          src="react.svg"
+          src={react.src}
           className="logo react w-80 mb-8"
           alt="React logo"
         />

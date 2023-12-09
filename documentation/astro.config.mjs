@@ -29,9 +29,9 @@ export default defineConfig({
           ],
         },
         {
-          label: 'Reference',
+          label: 'Hooks',
           autogenerate: {
-            directory: 'reference',
+            directory: 'hooks',
           },
         },
       ],

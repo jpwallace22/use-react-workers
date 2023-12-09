@@ -1,0 +1,87 @@
+---
+title: useWorkerFunc()
+description: A hook that exposes a web worker as a function that returns a promise
+---
+
+import { UseWorkerFunc } from '../../../components/UseWorkerFunc';
+
+## Overview
+
+A hook that exposes a function that offloads its computations to an isolated thread facilitated by a web worker and returns a promise.
+
+## Import
+
+```ts
+import { useWorker } from 'use-react-hooks';
+```
+
+## Interface
+
+```ts
+interface Controller {
+  status: 'idle' | 'running' | 'error' | 'expired' | 'killed';
+  terminate: () => void;
+}
+
+interface Options {
+  timeout?: number;
+  remoteDependencies?: string[];
+  autoTerminate?: boolean;
+  transferable?: 'auto' | 'none';
+}
+
+/**
+ * @template T - The type of the function to be offloaded.
+ * @param {T} func - The function to be offloaded.
+ * @param {Options} [options] - Optional options.
+ * @returns {[(...funcArgs: Parameters<T>) => Promise<ReturnType<T>>, Controller]} - An array containing the offloaded function and a Controller object.
+ */
+const useWorkerFunc = <T extends (...funcArgs: any[]) => any>(
+  func: T,
+  options?: Options
+) => {
+  return [(...funcArgs: Parameters<T>) => Promise<ReturnType<T>>, Controller];
+};
+```
+
+## Usage
+
+```tsx
+// MyRadComponent.tsx
+import React from 'react';
+import { useWorkerFunc } from 'use-react-workers';
+
+// Heavy compute function
+function fibonacci(n: number): number {
+  return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+
+const MyCoolComponent = () => {
+  const [fibWorker] = useWorkerFunc(fibonacci);
+
+  const withWorker = async () => {
+    const result = await fibWorker(45); // Will not block the main thread 🥳
+    console.log(result);
+  };
+
+  const without = () => {
+    const result = fibWorker(45); // Main thread is blocked 😪
+    console.log(result);
+  };
+
+  return (
+    <div className="flex gap-4">
+      <button className="btn" onClick={withWorker}>
+        With Worker
+      </button>
+      <button className="btn" onClick={handleClick}>
+        Without Worker
+      </button>
+    </div>
+  );
+};
+```
+
+## Demo
+
+<UseWorkerFunc client:only="react" />
