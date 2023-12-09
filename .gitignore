@@ -55,7 +55,6 @@ typings/
 *.tgz
 
 # Production
-build/
 dist/
 
 # editors

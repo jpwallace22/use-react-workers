@@ -8,6 +8,7 @@ import tailwind from '@astrojs/tailwind';
 export default defineConfig({
   site: 'https://jpwallace22.github.io',
   base: '/docs',
+  outDir: './build',
   integrations: [
     starlight({
       title: 'Use React Workers',
