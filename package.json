@@ -15,11 +15,11 @@
   "scripts": {
     "preinstall": "npx only-allow yarn",
     "dev": "concurrently \"yarn hooks dev\" \"yarn docs dev\"",
-    "build": "yarn hooks build && yarn examples build",
+    "build": "yarn hooks build && yarn docs build",
     "hooks": "yarn workspace use-react-workers",
     "docs": "yarn workspace docs",
-    "lint": "eslint \"{use-react-workers,examples}/**/*.{js,jsx,ts,tsx,mdx}\"",
-    "lint:fix": "eslint \"{use-react-workers,examples}/**/*.{js,jsx,ts,tsx,mdx}\" --fix"
+    "lint": "eslint \"{use-react-workers}/**/*.{js,jsx,ts,tsx,mdx}\"",
+    "lint:fix": "eslint \"{use-react-workers}/**/*.{js,jsx,ts,tsx,mdx}\" --fix"
   },
   "private": true,
   "workspaces": [
