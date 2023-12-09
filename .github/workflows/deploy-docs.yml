@@ -22,10 +22,18 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v1
+      - name: Deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs/dist
+
+      - name: Deploy Success Comment
+        uses: mshick/add-pr-comment@v2
+        if: ${{ steps.deploy.outcome == 'success' }}
+        with:
+          message: |
+            ## ✅ Deploy successful!
+            | View Docs | https://jpwallace22.github.io/use-react-workers |
+            |---|---|
