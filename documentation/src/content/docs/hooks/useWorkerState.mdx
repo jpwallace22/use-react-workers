@@ -1,0 +1,82 @@
+---
+title: useWorkerState()
+description: A hook that exposes a web worker as a function and returns state
+---
+
+import { UseWorkerState } from '../../../components/useWorkerState';
+
+## Overview
+
+A hook that acts similar to Reacts `useState` but computes in a seperate thread, returns a state, and cleans itself up on un-mount.
+
+## Import
+
+```ts
+import { seWorkerState } from 'use-react-hooks';
+```
+
+## Interface
+
+```ts
+interface Controller {
+  status: 'idle' | 'running' | 'error' | 'expired' | 'killed';
+  terminate: () => void;
+}
+
+/**
+ * @param {T} func - The function to be executed in the web worker.
+ * @param {ReturnType<T>} defaultState - The arguments to be passed to the function.
+ * @returns {[ReturnType<T> | null, (input: Parameters<T>) => Promise<void>,  Controller]} - An array containing the result of the function and a controller object.
+ */
+const useWorkerState: <
+  R extends ReturnType<T>,
+  T extends (args: any) => any = (args: any) => any
+>(
+  func: T,
+  defaultState: R
+) => [
+  ReturnType<T> | null,
+  (...args: Parameters<T>) => Promise<void>,
+  Controller
+];
+```
+
+## Usage
+
+```tsx
+// StatefulComponent.tsx
+import React from 'react';
+import { useWorkerState } from 'use-react-workers';
+
+// Heavy compute function
+function fibonacci(n: number): number {
+  return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+
+const MyCoolComponent = () => {
+  const [calcNum, setCalcNum] = useState(0);
+  const [fib, setFib] = useWorkerState(fibonacci, 0); // Will not block the main thread
+
+  return (
+    <div>
+      <h1>Fib Number: {fib}</h1>
+      <input
+        type="number"
+        value={calcNum}
+        onChange={({ target }) => setCalcNum(Number(target.value))}
+      />
+      <button onClick={() => setFib(calcNum)}>Calc new state</button>
+    </div>
+  );
+};
+```
+
+## Demo
+
+<UseWorkerState client:only="react" />
+
+:::caution
+
+If you use a large number it can take quite a while. 😅 Use as your own risk.
+
+:::
