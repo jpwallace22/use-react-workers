@@ -1,0 +1,51 @@
+---
+title: In a nutshell
+---
+
+import { Card, LinkCard } from '@astrojs/starlight/components';
+import { UseWorkerFunc } from '../../components/UseWorkerFunc.tsx';
+
+<UseWorkerFunc client:only="react" />
+
+```tsx
+// MyRadComponent.tsx
+import React from 'react';
+import { useWorkerFunc } from 'use-react-workers';
+
+// Heavy compute function
+function fibonacci(n: number): number {
+  return n <= 1 ? n : fib(n - 1) + fib(n - 2);
+}
+
+const MyCoolComponent = () => {
+  const [fibWorker] = useWorkerFunc(fibonacci);
+
+  const withWorker = async () => {
+    const result = await fibWorker(45); // Will not block the main thread 🥳
+    console.log(result);
+  };
+
+  const without = () => {
+    const result = fibWorker(45); // Main thread is blocked 😪
+    console.log(result);
+  };
+
+  return (
+    <div className="flex gap-4">
+      <button className="btn" onClick={withWorker}>
+        With Worker
+      </button>
+      <button className="btn" onClick={handleClick}>
+        Without Worker
+      </button>
+    </div>
+  );
+};
+```
+
+<LinkCard
+  title="Check out the Author"
+  description="Justin Wallace is a Senior Software Engineer at OctoML and is always open to collaberation or just a chat"
+  icon="github"
+  href="https://www.justinwallace.dev"
+/>

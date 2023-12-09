@@ -1,0 +1,78 @@
+---
+title: useWorker()
+description: A hook that exposes a web worker as a function that returns a promise
+---
+
+import { UseWorker } from '../../../components/UseWorker';
+
+## Overview
+
+A hook the returns a Worker object which exposes methods to post messages and receive them to/from the worker thread.
+
+This hook has less abstraction that the other hooks, but is good for long running processes or if you need to subscribe to updates.
+Even if the main thread is blocked, it will not stop or slow. In the example below, I used a timer to show that if the thread
+was blocked at any point, the time would still be accurate.
+
+## Import
+
+```ts
+import { useWorker } from 'use-react-hooks';
+```
+
+## Interface
+
+```ts
+interface Options {
+  timeout?: number;
+  remoteDependencies?: string[];
+  autoTerminate?: boolean;
+  transferable?: 'auto' | 'none';
+}
+
+const useWorker: <T extends (...funcArgs: any[]) => any>(
+  func: T,
+  options?: Options
+) => {
+  postMessage: (...funcArgs: Parameters<T>) => void;
+  onMessage: (callBack: (e: MessageEvent) => void) => void;
+  terminate: () => void;
+  status: WorkerStatus;
+};
+```
+
+## Usage
+
+```tsx
+import React from 'react';
+import { useWorker } from 'use-react-workers';
+
+// Long running function that we dont want blocked by
+// other functions or operations
+export const countByInput = (countBy: 2 | 5) => {
+  let seconds = countBy;
+  setInterval(() => {
+    postMessage(seconds);
+    seconds += countBy;
+  }, 1000);
+};
+
+const MyCounter = () => {
+  const [count, setCount] = useState(0);
+  const timer = useWorker(countByInput); // Will not block the main thread
+
+  timerWorker.onMessage(({ data }) => setCount(data));
+
+  return (
+    <div>
+      <h1>Count: {count}</h1>
+      <button onClick={() => timer.postMessage(2)}>Count By 2</button>
+      <button onClick={() => timer.postMessage(5)}>Count By 5</button>
+      <button onClick={() => timer.terminate()}>Stop</button>
+    </div>
+  );
+};
+```
+
+## Demo
+
+<UseWorker client:only="react" />
