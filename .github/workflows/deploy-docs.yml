@@ -12,7 +12,7 @@ permissions:
 
 jobs:
   build:
-    name: Build
+    name: Build 🛠️
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -33,11 +33,10 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./docs/dist
+          folder: ./docs/dist
 
       - name: Deploy Success Comment
         uses: mshick/add-pr-comment@v2
