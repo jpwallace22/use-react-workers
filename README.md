@@ -70,10 +70,10 @@ const MyCoolComponent = () => {
   return (
     <div className="flex gap-4">
       <button type="button" onClick={handleClick}>
-        Run With Worker
+        With Worker
       </button>
       <button type="button" onClick={handleClick}>
-        Run Without Worker
+        Without Worker
       </button>
     </div>
   );
@@ -108,7 +108,7 @@ const MyCoolComponent = () => {
 
 ```tsx
 import React from 'react';
-import { useWorkerState } from 'use-react-workers';
+import { useWorker } from 'use-react-workers';
 
 // Long running function that we dont want blocked
 export const countByInput = (countBy: 1 | 2 | 5) => {
@@ -122,7 +122,7 @@ export const countByInput = (countBy: 1 | 2 | 5) => {
 const MyCoolComponent = () => {
   const timer = useWorker(countByInput); // Will not block the main thread
 
-  timer.onMessage({ data } => console.log(data));
+  timerWorker.onMessage(({ data }) => setCount(data));
 
   return (
     <div>
