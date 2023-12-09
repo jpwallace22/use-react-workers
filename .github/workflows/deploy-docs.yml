@@ -11,24 +11,6 @@ permissions:
   id-token: write
 
 jobs:
-  build:
-    name: Build 🛠️
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_ENV
-
-      - name: 'use node ${{ env.NODE_VERSION }}'
-        uses: actions/setup-node@v3
-        with:
-          node-version: '${{ env.NODE_VERSION }}'
-
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-
-      - name: Build docs
-        run: yarn build
-
   deploy:
     environment:
       name: github-pages
