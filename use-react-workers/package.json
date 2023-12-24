@@ -19,7 +19,7 @@
     "dequal": "^1.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.0"
+    "react": "16 - 18"
   },
   "devDependencies": {
     "@testing-library/react-hooks": "^3.4.2",
