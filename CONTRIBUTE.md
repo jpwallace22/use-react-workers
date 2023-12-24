@@ -3,10 +3,10 @@
 First off, thank you. Contributions and improvements are always welcome!
 
 If you couldn't tell already `use-react-hooks` is a monorepo managed with a basic yarn workspaces.
-There are currently two top-level packages (`examples` and `use-react-hooks`). All of the hook go in
-`use-react-hooks` and the examples package is to test and show how it works.
+There are currently three top-level packages (`examples`, `docs`, & `use-react-hooks`). All of the hooks go in
+`use-react-hooks` and the examples package is for testing (though it might be removed in favor or just testing in docs).
 
-A top-level docs package is soon to come!
+Please ensure that any changes are also noted in the docs
 
 ## Setup
 
