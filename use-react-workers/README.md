@@ -1,5 +1,5 @@
 <h1 align="center">
-  use-react-workers - Reacts hooks for Web Workers
+  `use-react-workers` Reacts hooks for Web Workers
 </h1>
 
 ## 🎨 Features
@@ -169,7 +169,7 @@ The library is experimental so if you find a **bug** or would like to request a 
 
 _How to contribute?_
 
-Read [CONTRIBUTE.md](docs/CONTRIBUTE.md)
+Read [CONTRIBUTE.md](CONTRIBUTE.md)
 
 ## 📜 License
 

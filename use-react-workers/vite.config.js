@@ -28,7 +28,6 @@ export default defineConfig(async () => ({
   plugins: [
     react(),
     dts({
-      rollupTypes: true,
       outDir: OUT_DIR,
     }),
   ],
