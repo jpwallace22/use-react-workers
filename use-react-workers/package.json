@@ -14,6 +14,7 @@
   "scripts": {
     "prebuild": "yarn test:types",
     "build": "yarn clean && vite build && yarn build:readme",
+    "build:typecheck": "attw $(npm pack)",
     "build:readme": "cp ../README.md README.md",
     "clean": "rimraf ../dist",
     "dev": "vite build --watch",
