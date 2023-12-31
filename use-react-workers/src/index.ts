@@ -1,4 +1,7 @@
-export { useWorkerFunc } from './useWorkerFunc';
-export { useWorkerState } from './useWorkerState';
-export { useWorker } from './useWorker';
+// Hooks
+export * from './useWorkerFunc';
+export * from './useWorkerState';
+export * from './useWorker';
+
+// Types
 export * from './types';

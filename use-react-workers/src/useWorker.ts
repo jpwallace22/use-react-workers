@@ -14,11 +14,21 @@ const defaultOptions = {
   transferable: TRANSFERABLE_TYPE.AUTO,
 };
 
+export type UseWorker = <T extends (...funcArgs: any[]) => any>(
+  func: T,
+  options?: Options
+) => {
+  postMessage: (...funcArgs: Parameters<T>) => void;
+  onMessage: (callBack: (e: MessageEvent) => void) => void;
+  terminate: () => void;
+  status: WorkerStatus;
+};
+
 /**
  * @param {Function} func the function to run with web worker
  * @param {Options} options useWorkerFunc option params
  */
-export const useWorker = <T extends (...funcArgs: any[]) => any>(
+export const useWorker: UseWorker = <T extends (...funcArgs: any[]) => any>(
   func: T,
   options: Options = defaultOptions
 ): typeof workerHook => {

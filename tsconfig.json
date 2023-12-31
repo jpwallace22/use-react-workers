@@ -12,6 +12,7 @@
     "experimentalDecorators": false,
     "allowJs": false,
     "isolatedModules": false,
+    "removeComments": true,
 
     /* Strictness Checks */
     "alwaysStrict": true,

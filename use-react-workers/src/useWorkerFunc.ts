@@ -17,7 +17,7 @@ export interface Controller {
   terminate: () => void;
 }
 
-interface Promise {
+interface PromiseResponse {
   resolve: (result: any | ErrorEvent) => void;
   reject: (result: any) => void;
 }
@@ -29,16 +29,23 @@ const defaultOptions = {
   transferable: TRANSFERABLE_TYPE.AUTO,
 };
 
-const defaultPromise: Promise = {
+const defaultPromise: PromiseResponse = {
   resolve: () => null,
   reject: () => null,
 };
+
+export type UseWorkerFunc = <T extends (...funcArgs: any[]) => any>(
+  func: T,
+  options?: Options
+) => [(...funcArgs: Parameters<T>) => Promise<ReturnType<T>>, Controller];
 
 /**
  * @param {Function} func the function to run with web worker
  * @param {Options} options useWorkerFunc option params
  */
-export const useWorkerFunc = <T extends (...funcArgs: any[]) => any>(
+export const useWorkerFunc: UseWorkerFunc = <
+  T extends (...funcArgs: any[]) => any
+>(
   func: T,
   options: Options = defaultOptions
 ): [typeof workerHook, Controller] => {
@@ -51,7 +58,7 @@ export const useWorkerFunc = <T extends (...funcArgs: any[]) => any>(
     WorkerStatus.IDLE
   );
   const worker = useRef<Worker & { _url?: string }>();
-  const promise = useRef<Promise>(defaultPromise);
+  const promise = useRef<PromiseResponse>(defaultPromise);
   const timeoutId = useRef<NodeJS.Timeout>();
 
   const killWorker = useCallback(() => {
