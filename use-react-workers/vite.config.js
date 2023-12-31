@@ -12,6 +12,7 @@ export default defineConfig(async () => ({
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'useWebWorker',
+      formats: ['es', 'cjs'],
     },
     ssr: true,
     rollupOptions: {

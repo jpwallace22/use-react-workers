@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals */
-import { importScriptsFromDeps } from './importScriptsFromDeps';
-import { TRANSFERABLE_TYPE } from 'use-react-workers/src/types';
+import { importScriptsFromDeps } from './importScriptsFromDeps.ts';
+import { TRANSFERABLE_TYPE } from 'use-react-workers/src/types.ts';
 
 /**
  * Builds a web worker out of the function

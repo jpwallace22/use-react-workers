@@ -1,11 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { createPersistentBlobUrl } from './utils/createPersistentBlobUrl';
-import { useDeepCallback } from './utils/useDeepCallback';
-import {
-  Options,
-  TRANSFERABLE_TYPE,
-  WorkerStatus,
-} from 'use-react-workers/src/types';
+import { createPersistentBlobUrl } from './utils/createPersistentBlobUrl.ts';
+import { useDeepCallback } from './utils/useDeepCallback.ts';
+import { Options, TRANSFERABLE_TYPE, WorkerStatus } from './types.ts';
 
 const defaultOptions = {
   timeout: undefined,

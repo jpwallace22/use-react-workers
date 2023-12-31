@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Controller, useWorkerFunc } from './useWorkerFunc';
+import { Controller, useWorkerFunc } from './useWorkerFunc.ts';
 
 export type UseWorkerState = <
   R extends ReturnType<T>,

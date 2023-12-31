@@ -1,7 +1,7 @@
 // Hooks
-export * from './useWorkerFunc';
-export * from './useWorkerState';
-export * from './useWorker';
+export * from './useWorkerFunc.ts';
+export * from './useWorkerState.ts';
+export * from './useWorker.ts';
 
 // Types
-export * from './types';
+export * from './types.ts';

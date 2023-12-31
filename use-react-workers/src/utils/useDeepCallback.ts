@@ -13,6 +13,7 @@ export const useDeepCallback = <T extends (...args: any[]) => any>(
   newDependencies: DependencyList
 ) => {
   const dependencies = useRef<DependencyList>(newDependencies);
+  // @ts-expect-error dequal type resolutions
   const areDeepsEqual = dequal(dependencies.current, newDependencies);
   if (!areDeepsEqual) {
     dependencies.current = newDependencies;

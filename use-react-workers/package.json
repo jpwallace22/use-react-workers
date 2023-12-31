@@ -6,6 +6,11 @@
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "prebuild": "yarn test:types",
     "build": "yarn clean && vite build && yarn build:readme",
