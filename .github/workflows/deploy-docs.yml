@@ -32,9 +32,6 @@ jobs:
       - name: Build
         run: yarn build
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
-
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
@@ -43,3 +40,5 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v3
+        with:
+          token: ${{ github.token }}

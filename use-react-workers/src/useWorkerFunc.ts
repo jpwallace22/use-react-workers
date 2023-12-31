@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import createWorkerBlobUrl from './utils/createWorkerBlobUrl';
-import { useDeepCallback } from './utils/useDeepCallback';
-import { Options, TRANSFERABLE_TYPE, WorkerStatus } from './types';
+import createWorkerBlobUrl from './utils/createWorkerBlobUrl.ts';
+import { useDeepCallback } from './utils/useDeepCallback.ts';
+import { Options, TRANSFERABLE_TYPE, WorkerStatus } from './types.ts';
 
 // TODO
 /**

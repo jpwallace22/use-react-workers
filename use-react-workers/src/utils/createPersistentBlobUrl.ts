@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable no-restricted-globals */
 
-import { importScriptsFromDeps } from './importScriptsFromDeps';
+import { importScriptsFromDeps } from './importScriptsFromDeps.ts';
 
 /**
  * Builds a web worker out of the function

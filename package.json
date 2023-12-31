@@ -1,5 +1,6 @@
 {
   "name": "root",
+  "author": "Justin Wallace <jpwallace22@gmail.com>",
   "version": "1.0.0",
   "description": "React Hooks for Web Workers & Web Worker utilities",
   "devDependencies": {
@@ -26,6 +27,5 @@
     "use-react-workers",
     "docs"
   ],
-  "author": "jpwallace22",
   "license": "MIT"
 }

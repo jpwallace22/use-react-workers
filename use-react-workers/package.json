@@ -1,14 +1,21 @@
 {
   "name": "use-react-workers",
   "description": "React Hooks for Web Workers & Web Worker utilities",
-  "version": "0.3.1",
+  "author": "Justin Wallace <jpwallace22@gmail.com>",
+  "version": "0.3.2",
   "source": "src/index.ts",
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "type": "module",
+  "sideEffects": false,
+  "exports": {
+    ".": "./dist/index.js"
+  },
   "scripts": {
     "prebuild": "yarn test:types",
     "build": "yarn clean && vite build && yarn build:readme",
+    "build:typecheck": "attw $(npm pack)",
     "build:readme": "cp ../README.md README.md",
     "clean": "rimraf ../dist",
     "dev": "vite build --watch",
@@ -31,7 +38,6 @@
     "vite": "^5.0.4",
     "vite-plugin-dts": "^3.6.4"
   },
-  "author": "jpwallace22",
   "license": "MIT",
   "repository": "jpwallace22/use-react-workers",
   "keywords": [
