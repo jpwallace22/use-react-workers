@@ -20,7 +20,8 @@
     "clean": "rimraf ../dist",
     "dev": "vite build --watch",
     "test:types": "tsc --noEmit",
-    "link": "eslint src/ --ext .ts"
+    "link": "eslint src/ --ext .ts",
+    "release:dry": "source ../.env && npx semantic-release --dry-run"
   },
   "dependencies": {
     "dequal": "^1.0.0"
@@ -29,6 +30,12 @@
     "react": "16 - 18"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/commit-analyzer": "^11.1.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/github": "^9.2.6",
+    "@semantic-release/npm": "^11.0.2",
+    "@semantic-release/release-notes-generator": "^12.1.0",
     "@testing-library/react-hooks": "^3.4.2",
     "@types/react": "^16.9.34",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
@@ -36,10 +43,11 @@
     "react": "^16.13.1",
     "react-test-renderer": "^16.13.1",
     "vite": "^5.0.4",
-    "vite-plugin-dts": "^3.6.4"
+    "vite-plugin-dts": "^3.6.4",
+    "semantic-release": "^22.0.12"
   },
   "license": "MIT",
-  "repository": "jpwallace22/use-react-workers",
+  "repository": "git@github.com:jpwallace22/use-react-workers.git",
   "keywords": [
     "use",
     "webWorker",
