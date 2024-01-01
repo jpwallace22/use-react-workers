@@ -30,18 +30,10 @@ interface Options {
   transferable?: 'auto' | 'none';
 }
 
-/**
- * @template T - The type of the function to be offloaded.
- * @param {T} func - The function to be offloaded.
- * @param {Options} [options] - Optional options.
- * @returns {[(...funcArgs: Parameters<T>) => Promise<ReturnType<T>>, Controller]} - An array containing the offloaded function and a Controller object.
- */
-const useWorkerFunc = <T extends (...funcArgs: any[]) => any>(
+const useWorkerFunc = <T extends (args: any[]) => any>(
   func: T,
   options?: Options
-) => {
-  return [(...funcArgs: Parameters<T>) => Promise<ReturnType<T>>, Controller];
-};
+) => [(args: Parameters<T>) => Promise<ReturnType<T>>, Controller];
 ```
 
 ## Usage

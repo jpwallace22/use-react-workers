@@ -29,12 +29,12 @@ interface Options {
   transferable?: 'auto' | 'none';
 }
 
-const useWorker: <T extends (...funcArgs: any[]) => any>(
+const useWorker: <T extends (args: any[]) => any>(
   func: T,
   options?: Options
 ) => {
-  postMessage: (...funcArgs: Parameters<T>) => void;
-  onMessage: (callBack: (e: MessageEvent) => void) => void;
+  postMessage: (args: Parameters<T>) => void;
+  onMessage: (e: MessageEvent) => void;
   terminate: () => void;
   status: WorkerStatus;
 };

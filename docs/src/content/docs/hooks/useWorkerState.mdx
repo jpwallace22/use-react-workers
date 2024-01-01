@@ -23,22 +23,10 @@ interface Controller {
   terminate: () => void;
 }
 
-/**
- * @param {T} func - The function to be executed in the web worker.
- * @param {ReturnType<T>} defaultState - The arguments to be passed to the function.
- * @returns {[ReturnType<T> | null, (input: Parameters<T>) => Promise<void>,  Controller]} - An array containing the result of the function and a controller object.
- */
-const useWorkerState: <
-  R extends ReturnType<T>,
-  T extends (args: any) => any = (args: any) => any
->(
+const useWorkerState: <T extends (args: any) => any, R extends ReturnType<T>>(
   func: T,
   defaultState: R
-) => [
-  ReturnType<T> | null,
-  (...args: Parameters<T>) => Promise<void>,
-  Controller
-];
+) => [ReturnType<T> | null, (args: Parameters<T>) => Promise<void>, Controller];
 ```
 
 ## Usage
