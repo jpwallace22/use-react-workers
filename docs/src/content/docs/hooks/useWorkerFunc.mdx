@@ -65,7 +65,7 @@ const MyCoolComponent = () => {
   };
 
   const without = () => {
-    const result = fibWorker(45); // Main thread is blocked 😪
+    const result = fibonacci(45); // Main thread is blocked 😪
     console.log(result);
   };
 
@@ -74,7 +74,7 @@ const MyCoolComponent = () => {
       <button className="btn" onClick={withWorker}>
         With Worker
       </button>
-      <button className="btn" onClick={handleClick}>
+      <button className="btn" onClick={without}>
         Without Worker
       </button>
     </div>
