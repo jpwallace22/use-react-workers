@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - next
     paths:
       - '/use-react-workers/**'
   workflow_dispatch:
