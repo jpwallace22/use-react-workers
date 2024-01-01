@@ -42,9 +42,9 @@
     "@vitejs/plugin-react": "^4.2.0",
     "react": "^16.13.1",
     "react-test-renderer": "^16.13.1",
+    "semantic-release": "^22.0.12",
     "vite": "^5.0.4",
-    "vite-plugin-dts": "^3.6.4",
-    "semantic-release": "^22.0.12"
+    "vite-plugin-dts": "^3.6.4"
   },
   "license": "MIT",
   "repository": "git@github.com:jpwallace22/use-react-workers.git",

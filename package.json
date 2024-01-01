@@ -12,17 +12,22 @@
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react": "^7.33.2",
+    "husky": "4.3.8",
+    "lint-staged": "^15.2.0",
     "rimraf": "^5.0.5"
   },
   "scripts": {
+    "hooks": "yarn workspace use-react-workers",
+    "docs": "yarn workspace docs",
     "preinstall": "npx only-allow yarn",
     "dev": "concurrently \"yarn hooks dev\" \"yarn docs dev\"",
     "build": "yarn hooks build && yarn docs build",
     "test:typecheck": "tsc --noEmit",
-    "hooks": "yarn workspace use-react-workers",
-    "docs": "yarn workspace docs",
     "lint": "eslint \"{use-react-workers}/**/*.{js,jsx,ts,tsx,mdx}\"",
     "lint:fix": "eslint \"{use-react-workers}/**/*.{js,jsx,ts,tsx,mdx}\" --fix",
+    "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
+    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "format": "yarn lint:fix && yarn prettier:fix",
     "release:dry": "yarn hooks release:dry"
   },
   "private": true,
@@ -30,5 +35,17 @@
     "use-react-workers",
     "docs"
   ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mdx,md}": [
+      "yarn format"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "npx commitlint -E HUSKY_GIT_PARAMS",
+      "pre-commit": "lint-staged",
+      "pre-push": "turbo types:check && turbo test && turbo build"
+    }
+  },
   "license": "MIT"
 }
