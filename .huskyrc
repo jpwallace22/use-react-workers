@@ -1,7 +1,0 @@
-{
-  "hooks": {
-    "commit-msg": "npx commitlint -E HUSKY_GIT_PARAMS",
-    "pre-commit": "lint-staged",
-    "pre-push": "turbo types:check && turbo test && turbo build"
-  }
-}

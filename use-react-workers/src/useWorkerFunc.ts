@@ -43,9 +43,7 @@ export type UseWorkerFunc = <T extends (...funcArgs: any[]) => any>(
  * @param {Function} func the function to run with web worker
  * @param {Options} options useWorkerFunc option params
  */
-export const useWorkerFunc: UseWorkerFunc = <
-  T extends (...funcArgs: any[]) => any
->(
+export const useWorkerFunc: UseWorkerFunc = <T extends (...funcArgs: any[]) => any>(
   func: T,
   options: Options = defaultOptions
 ): [typeof workerHook, Controller] => {
@@ -54,9 +52,7 @@ export const useWorkerFunc: UseWorkerFunc = <
     ...options,
   };
 
-  const [workerStatus, setWorkerStatus] = useState<WorkerStatus>(
-    WorkerStatus.IDLE
-  );
+  const [workerStatus, setWorkerStatus] = useState<WorkerStatus>(WorkerStatus.IDLE);
   const worker = useRef<Worker & { _url?: string }>();
   const promise = useRef<PromiseResponse>(defaultPromise);
   const timeoutId = useRef<NodeJS.Timeout>();
@@ -82,11 +78,7 @@ export const useWorkerFunc: UseWorkerFunc = <
   );
 
   const generateWorker = useDeepCallback(() => {
-    const workerUrl = createWorkerBlobUrl(
-      func,
-      remoteDependencies,
-      transferable
-    );
+    const workerUrl = createWorkerBlobUrl(func, remoteDependencies, transferable);
 
     const webWorker: Worker & { _url?: string } = new Worker(workerUrl);
     webWorker._url = workerUrl;
@@ -135,8 +127,7 @@ export const useWorkerFunc: UseWorkerFunc = <
                   ('ArrayBuffer' in window && val instanceof ArrayBuffer) ||
                   ('MessagePort' in window && val instanceof MessagePort) ||
                   ('ImageBitmap' in window && val instanceof ImageBitmap) ||
-                  ('OffscreenCanvas' in window &&
-                    val instanceof OffscreenCanvas)
+                  ('OffscreenCanvas' in window && val instanceof OffscreenCanvas)
               )
             : [];
 

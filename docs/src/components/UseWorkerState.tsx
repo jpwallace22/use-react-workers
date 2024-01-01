@@ -25,11 +25,7 @@ export function UseWorkerState() {
   return (
     <div className="not-content my-8 mx-auto w-fit text-center">
       <div>
-        <img
-          src={react.src}
-          className="logo react w-80 mb-8"
-          alt="React logo"
-        />
+        <img src={react.src} className="logo react w-80 mb-8" alt="React logo" />
       </div>
 
       <div className="grid gap-4">
@@ -37,11 +33,7 @@ export function UseWorkerState() {
           <strong>Fib Number:</strong> {fibNum}
         </p>
         <div className="flex gap-4 justify-center">
-          <input
-            type="number"
-            value={calcNum}
-            onChange={({ target }) => setCalcNum(Number(target.value))}
-          />
+          <input type="number" value={calcNum} onChange={({ target }) => setCalcNum(Number(target.value))} />
           <button className="btn primary" onClick={() => setFibNum(calcNum)}>
             Calc new state
           </button>

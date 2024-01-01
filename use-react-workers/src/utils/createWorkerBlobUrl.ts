@@ -16,11 +16,7 @@ import { TRANSFERABLE_TYPE } from 'use-react-workers/src/types.ts';
  * .then(postMessage(['IDLE', result]))
  * .catch(postMessage(['ERROR', error])"
  */
-const createWorkerBlobUrl = (
-  fn: (args: any[]) => any,
-  deps: string[],
-  transferable: TRANSFERABLE_TYPE
-) => {
+const createWorkerBlobUrl = (fn: (args: any[]) => any, deps: string[], transferable: TRANSFERABLE_TYPE) => {
   const blobCode = `
     ${importScriptsFromDeps(deps)};
     onmessage=(${jobRunner})({
@@ -68,10 +64,7 @@ export const jobRunner =
         ('ImageBitmap' in self && val_1 instanceof ImageBitmap) ||
         ('OffscreenCanvas' in self && val_1 instanceof OffscreenCanvas);
 
-      const transferList: any[] =
-        options.transferable === 'auto' && isTransferable(result)
-          ? [result]
-          : [];
+      const transferList: any[] = options.transferable === 'auto' && isTransferable(result) ? [result] : [];
 
       // @ts-ignore
       // Cannot use WorkerStatus Enum within the job runner until I figure

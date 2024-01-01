@@ -23,11 +23,7 @@ export function UseWorker() {
   return (
     <div className="not-content my-8 mx-auto w-fit text-center">
       <div>
-        <img
-          src={react.src}
-          className="logo react w-80 mb-8"
-          alt="React logo"
-        />
+        <img src={react.src} className="logo react w-80 mb-8" alt="React logo" />
       </div>
 
       <div className="grid gap-4">
