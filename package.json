@@ -3,29 +3,45 @@
   "author": "Justin Wallace <jpwallace22@gmail.com>",
   "version": "1.0.0",
   "description": "React Hooks for Web Workers & Web Worker utilities",
+  "packageManager": "yarn@1.22.19",
   "devDependencies": {
     "@changesets/cli": "^2.13.1",
+    "@commitlint/config-conventional": "^18.4.3",
+    "commitlint": "^18.4.3",
     "concurrently": "^8.2.2",
     "eslint": "^8.55.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-config-react-app": "^7.0.1",
     "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-react": "^7.33.2",
+    "husky": "^8.0.0",
+    "lint-staged": "^15.2.0",
     "rimraf": "^5.0.5"
   },
   "scripts": {
+    "hooks": "yarn workspace use-react-workers",
+    "docs": "yarn workspace docs",
     "preinstall": "npx only-allow yarn",
     "dev": "concurrently \"yarn hooks dev\" \"yarn docs dev\"",
     "build": "yarn hooks build && yarn docs build",
-    "hooks": "yarn workspace use-react-workers",
-    "docs": "yarn workspace docs",
-    "lint": "eslint \"{use-react-workers}/**/*.{js,jsx,ts,tsx,mdx}\"",
-    "lint:fix": "eslint \"{use-react-workers}/**/*.{js,jsx,ts,tsx,mdx}\" --fix"
+    "test:typecheck": "tsc --noEmit",
+    "lint": "eslint \"{use-react-workers, docs}/**/*.{js,jsx,ts,tsx,mdx}\"",
+    "lint:fix": "eslint \"{use-react-workers, docs}/**/*.{js,jsx,ts,tsx,mdx}\" --fix",
+    "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
+    "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
+    "format": "yarn lint:fix && yarn prettier:fix",
+    "release:dry": "yarn hooks release:dry",
+    "prepare": "husky install"
   },
   "private": true,
   "workspaces": [
     "use-react-workers",
     "docs"
   ],
+  "lint-staged": {
+    "*.{js,jsx,ts,tsx,mdx,md}": [
+      "yarn format"
+    ]
+  },
   "license": "MIT"
 }

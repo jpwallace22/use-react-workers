@@ -32,9 +32,7 @@ export const useWorker: UseWorker = <T extends (...funcArgs: any[]) => any>(
     ...defaultOptions,
     ...options,
   };
-  const [workerStatus, setWorkerStatus] = useState<WorkerStatus>(
-    WorkerStatus.IDLE
-  );
+  const [workerStatus, setWorkerStatus] = useState<WorkerStatus>(WorkerStatus.IDLE);
 
   const worker = useRef<Worker & { _url?: string }>();
   const timeoutId = useRef<NodeJS.Timeout>();

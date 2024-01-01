@@ -17,10 +17,7 @@ import { importScriptsFromDeps } from './importScriptsFromDeps.ts';
  * .then(postMessage(['IDLE', result]))
  * .catch(postMessage(['ERROR', error])"
  */
-export const createPersistentBlobUrl = (
-  fn: (args: any[]) => any,
-  deps: string[]
-) => {
+export const createPersistentBlobUrl = (fn: (args: any[]) => any, deps: string[]) => {
   const blobCode = `
     ${importScriptsFromDeps(deps)};
     onmessage=(${jobRunner})({

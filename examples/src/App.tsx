@@ -16,10 +16,7 @@ function infiniteLoop() {
 
 function App() {
   const [fibWorker, { status }] = useWorkerFunc(fib);
-  const [fibNumber, setFibNumber, { status: stateStatus }] = useWorkerState(
-    fib,
-    10
-  );
+  const [fibNumber, setFibNumber, { status: stateStatus }] = useWorkerState(fib, 10);
   const timerWorker = useWorker(timer);
 
   const [time, setTime] = useState(0);
@@ -71,16 +68,10 @@ function App() {
         <p>
           <strong>Timer:</strong> {time}
         </p>
-        <button
-          onClick={() => timerWorker.postMessage(1)}
-          style={{ marginRight: '16px' }}
-        >
+        <button onClick={() => timerWorker.postMessage(1)} style={{ marginRight: '16px' }}>
           Count by 1
         </button>
-        <button
-          onClick={() => timerWorker.postMessage(2)}
-          style={{ marginRight: '16px' }}
-        >
+        <button onClick={() => timerWorker.postMessage(2)} style={{ marginRight: '16px' }}>
           Count by 2
         </button>
         <button onClick={() => timerWorker.terminate()}>Stop Timer</button>
@@ -94,16 +85,10 @@ function App() {
         <p>
           <strong>Current State:</strong> {fibNumber}
         </p>
-        <button
-          onClick={() => setFibNumber(20)}
-          style={{ marginRight: '16px' }}
-        >
+        <button onClick={() => setFibNumber(20)} style={{ marginRight: '16px' }}>
           Fib 20
         </button>
-        <button
-          onClick={() => setFibNumber(45)}
-          style={{ marginRight: '16px' }}
-        >
+        <button onClick={() => setFibNumber(45)} style={{ marginRight: '16px' }}>
           Fib 45
         </button>
         <button onClick={() => timerWorker.terminate()}>Stop Timer</button>

@@ -14,6 +14,7 @@
     "allowJs": false,
     "isolatedModules": false,
     "removeComments": true,
+    "noEmit": true,
     "allowImportingTsExtensions": true,
 
     /* Strictness Checks */
@@ -39,6 +40,6 @@
     "baseUrl": "."
   },
   "compileOnSave": false,
-  "include": ["useWebWorker"],
+  "include": ["use-react-workers"],
   "exclude": ["node_modules/**"]
 }
