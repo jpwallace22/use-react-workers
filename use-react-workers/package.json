@@ -21,7 +21,7 @@
     "dev": "vite build --watch",
     "test:types": "tsc --noEmit",
     "link": "eslint src/ --ext .ts",
-    "release:dry": "source ../.env && npx semantic-release --dry-run"
+    "release:dry": "source ../.env && npx semantic-release --dry-run --branches $(git branch --show-current)"
   },
   "dependencies": {
     "dequal": "^1.0.0"
