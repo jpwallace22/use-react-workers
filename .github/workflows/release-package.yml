@@ -6,7 +6,7 @@ on:
       - main
       - next
     paths:
-      - '/use-react-workers/**'
+      - 'use-react-workers/**'
   workflow_dispatch:
 
 permissions:
