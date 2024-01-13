@@ -14,7 +14,7 @@ export type UseWorkerState = <R extends ReturnType<T>, T extends (args: any) => 
  */
 export const useWorkerState: UseWorkerState = <
   R extends ReturnType<T>,
-  T extends (args: any) => any = (args: any) => any
+  T extends (args: any) => any = (args: any) => any,
 >(
   func: T,
   defaultState: R

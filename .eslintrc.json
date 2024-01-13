@@ -5,11 +5,7 @@
     "es2021": true,
     "node": true
   },
-  "extends": [
-    "react-app",
-    "react-app/jest",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "extends": ["react-app", "react-app/jest"],
   "parserOptions": {
     "parser": "@babel/eslint-parser"
   },

@@ -1,5 +1,5 @@
 <h1 align="center">
-  use-react-workers Reacts hooks for Web Workers
+  `use-react-workers` Reacts hooks for Web Workers
 </h1>
 
 ## 🎨 Features
