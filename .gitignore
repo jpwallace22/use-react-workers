@@ -18,6 +18,7 @@ pids
 
 # Dependency directories
 node_modules/
+.yarn
 
 # TypeScript v1 declaration files
 typings/
