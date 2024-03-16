@@ -3,14 +3,15 @@ import createWorkerBlobUrl from './utils/createWorkerBlobUrl.ts';
 import { useDeepCallback } from './utils/useDeepCallback.ts';
 import { Options, TRANSFERABLE_TYPE, WorkerStatus } from './types.ts';
 
-// TODO
-/**
- * I might be able to wrap this with the `useWorker` and reduce the overall
- * size of the library
- * ---
- * At the bare minimum, there is some repeated logic in here that could probably
- * make separate modules.
- */
+/** --TODO--
+* 
+* I might be able to wrap this with the `useWorker` and reduce the overall
+* size of the library
+* ---
+* At the bare minimum, there is some repeated logic in here that could probably
+* make separate modules.
+*  
+/** --TODO-- */
 
 export interface Controller {
   status: WorkerStatus;
@@ -40,8 +41,41 @@ export type UseWorkerFunc = <T extends (...funcArgs: any[]) => any>(
 ) => [(...funcArgs: Parameters<T>) => Promise<ReturnType<T>>, Controller];
 
 /**
- * @param {Function} func the function to run with web worker
- * @param {Options} options useWorkerFunc option params
+ * `useWorkerFunc` is a custom React hook that executes a given function in a web worker and returns a promise with its result.
+ * This hook is useful for offloading computationally heavy tasks to a separate thread, preventing the main thread from blocking.
+ *
+ * @template T The type of the function to be executed in the web worker.
+ * @param {T} func - The function to be executed in the web worker.
+ * @param {Options} options - An optional parameter that includes options for the web worker such as timeout, remoteDependencies, autoTerminate, and transferable.
+ * @returns {[(...funcArgs: Parameters<T>) => Promise<ReturnType<T>>, Controller]} - An array containing a function that when called with the arguments of the original function, returns a promise with the result, and a controller object to control the web worker.
+ *
+ * @example
+ * ```jsx
+ * import { useWorkerFunc } from './useWorkerFunc';
+ *
+ * function HeavyComputationComponent() {
+ *   const heavyComputation = (num) => {
+ *     let result = 0;
+ *     for (let i = 0; i < num; i++) {
+ *       result += Math.sqrt(i);
+ *     }
+ *     return result;
+ *   };
+ *
+ *   const [compute, controller] = useWorkerFunc(heavyComputation);
+ *
+ *   const handleClick = async () => {
+ *     const result = await compute(1e7); // Perform heavy computation with 1e7 as argument
+ *     console.log(result);
+ *   };
+ *
+ *   return (
+ *     <div>
+ *       <button onClick={handleClick}>Start Computation</button>
+ *     </div>
+ *   );
+ * }
+ * ```
  */
 export const useWorkerFunc: UseWorkerFunc = <T extends (...funcArgs: any[]) => any>(
   func: T,
