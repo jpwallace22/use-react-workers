@@ -21,8 +21,43 @@ export type UseWorker = <T extends (...funcArgs: any[]) => any>(
 };
 
 /**
- * @param {Function} func the function to run with web worker
- * @param {Options} options useWorkerFunc option params
+ * `useWorker` is a custom React hook that creates a web worker to run a given function.
+ * This hook is useful for offloading computationally heavy tasks to a separate thread, preventing the main thread from blocking.
+ *
+ * @template T The type of the function to be executed in the web worker.
+ * @param {T} func - The function to be executed in the web worker.
+ * @param {Options} options - An optional parameter that includes options for the web worker such as timeout, remoteDependencies, autoTerminate, and transferable.
+ * @returns {Object} - An object containing methods to interact with the web worker: postMessage, onMessage, terminate, and a status property.
+ *
+ * @example
+ * ```jsx
+ * import { useWorker } from './useWorker';
+ *
+ * function HeavyComputationComponent() {
+ *   const heavyComputation = (num) => {
+ *     let result = 0;
+ *     for (let i = 0; i < num; i++) {
+ *       result += Math.sqrt(i);
+ *     }
+ *     return result;
+ *   };
+ *
+ *   const worker = useWorker(heavyComputation);
+ *
+ *   const handleClick = () => {
+ *     worker.postMessage(1e7); // Perform heavy computation with 1e7 as argument
+ *     worker.onMessage((e) => {
+ *       console.log(e.data); // Log the result when it's ready
+ *     });
+ *   };
+ *
+ *   return (
+ *     <div>
+ *       <button onClick={handleClick}>Start Computation</button>
+ *     </div>
+ *   );
+ * }
+ * ```
  */
 export const useWorker: UseWorker = <T extends (...funcArgs: any[]) => any>(
   func: T,

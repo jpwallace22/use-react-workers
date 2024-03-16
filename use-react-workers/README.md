@@ -1,6 +1,8 @@
-<h1 align="center">
-  use-react-workers Reacts hooks for Web Workers
-</h1>
+# Reacts hooks for Web Workers
+
+## 📄 Docs
+
+Basic functionality can be found below. But for a more in depth description/demos, see [the documentation](https://jpwallace22.github.io/use-react-workers/)
 
 ## 🎨 Features
 
@@ -48,7 +50,7 @@ import { useWorkerState, useWorkerFunc, useWorker } from 'use-react-workers';
 
 ## 🎬 Usage
 
-#### useWorkerFunc
+### useWorkerFunc
 
 ```tsx
 import React from 'react';
@@ -80,7 +82,7 @@ const MyCoolComponent = () => {
 };
 ```
 
-#### useWorkerState
+### useWorkerState
 
 ```tsx
 import React from 'react';
@@ -104,7 +106,7 @@ const MyCoolComponent = () => {
 };
 ```
 
-#### useWorker
+### useWorker
 
 ```tsx
 import React from 'react';
