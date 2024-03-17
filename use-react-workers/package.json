@@ -27,7 +27,7 @@
     "dequal": "^1.0.0"
   },
   "peerDependencies": {
-    "react": "16 - 18"
+    "react": "^16.0.0 || ^17.0.0 || ^18.0.0"
   },
   "devDependencies": {
     "@semantic-release/changelog": "^6.0.3",
@@ -36,15 +36,17 @@
     "@semantic-release/github": "^9.2.6",
     "@semantic-release/npm": "^11.0.2",
     "@semantic-release/release-notes-generator": "^12.1.0",
-    "@testing-library/react-hooks": "^3.4.2",
+    "@types/eslint": "^8",
     "@types/react": "^16.9.34",
-    "@typescript-eslint/eslint-plugin": "^6.18.1",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
     "@vitejs/plugin-react": "^4.2.0",
-    "react": "^16.13.1",
-    "react-test-renderer": "^16.13.1",
+    "eslint": "^8.57.0",
+    "react": "^18.2.0",
     "semantic-release": "^22.0.12",
+    "typescript": "^5.4.2",
     "vite": "^5.0.4",
-    "vite-plugin-dts": "^3.6.4"
+    "vite-plugin-dts": "^3.7.3"
   },
   "license": "MIT",
   "repository": "git@github.com:jpwallace22/use-react-workers.git",
