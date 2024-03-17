@@ -28,6 +28,10 @@ export default defineConfig({
               label: 'Installation',
               link: '/start/installation/',
             },
+            {
+              label: 'Third Party Scripts',
+              link: '/start/third-party-scripts/',
+            },
           ],
         },
         {

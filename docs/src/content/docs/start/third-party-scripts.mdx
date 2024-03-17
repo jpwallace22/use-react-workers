@@ -1,0 +1,57 @@
+---
+title: Using Third-Party Scripts
+description: A powerful library that allows you to run third party scripts in a separate thread using Web Workers
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+`use-react-workers` is a powerful library that allows you to run JavaScript code in a separate thread using Web Workers. One of the features of this library is the ability to use third-party scripts within the worker.
+
+## How to Use Third-Party Scripts
+
+To use a third-party script, you need to pass the URL of the script to the `remoteDependencies` option when you initialize the worker hook (useWorker, useWorkerFunc, etc..). The `remoteDependencies` option accepts an array of URLs.
+
+Here's an simple example using the `mathjs` library:
+
+```ts
+const [mathWorker, { status }] = useWorkerFunc(mathFunc, {
+  remoteDependencies: ['https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js'],
+});
+```
+
+In this example, the mathjs library is loaded into the worker's context and can be used anywhere within the `mathFunc`
+
+:::note
+
+- The functions from the third-party scripts are not automatically imported into the global scope. They are part of the exported object of the library. For example, if you're using `mathjs`, you need to call the functions as `self.math.floor` instead of just `floor`.
+- The scripts must be compatible with Web Workers. Not all JavaScript libraries can be used in a Web Worker. Some libraries rely on APIs that are not available in workers, such as the DOM API.
+
+:::
+
+### Example
+
+Here's an example of how you can use a third-party script in a worker:
+
+```ts
+import { useWorkerFunc } from 'use-react-workers';
+
+function myFunction(n) {
+  return self.math.floor(n);
+}
+
+function MyComponent() {
+  const [myWorker, { status }] = useWorkerFunc(myFunction, {
+    remoteDependencies: ['https://cdnjs.cloudflare.com/ajax/libs/mathjs/10.4.0/math.min.js'],
+  });
+
+  return (
+    <div>
+      <button onClick={() => myWorker(2.6)}>Calculate</button>
+      <p>Status: {status}</p>
+    </div>
+  );
+}
+```
+
+Ca
+In this example, the `myFunction` function uses the floor function from the `mathjs` library. The `mathjs` library is loaded into the worker's context using the `remoteDependencies` option.
