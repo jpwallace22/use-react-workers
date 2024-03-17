@@ -175,4 +175,4 @@ Read [CONTRIBUTE.md](CONTRIBUTE.md)
 
 ## 📜 License
 
-[MIT](https://github.com/jpwallace22/use-react-workers/LICENSE)
+[MIT](https://github.com/jpwallace22/use-react-workers/LICENSE).
