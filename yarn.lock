@@ -3444,7 +3444,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@semantic-release/npm@npm:^11.0.0, @semantic-release/npm@npm:^11.0.2":
+"@semantic-release/npm@npm:^11.0.0":
   version: 11.0.3
   resolution: "@semantic-release/npm@npm:11.0.3"
   dependencies:
@@ -3464,6 +3464,29 @@ __metadata:
   peerDependencies:
     semantic-release: ">=20.1.0"
   checksum: 142f396de87ceb42d917b598cb7889b68e3f09b0a97736de8cf7ee48879714bb66efed10520a7a20699493c58b5523ed2925089cd5b59642b045e458101ef13c
+  languageName: node
+  linkType: hard
+
+"@semantic-release/npm@npm:^12.0.0":
+  version: 12.0.0
+  resolution: "@semantic-release/npm@npm:12.0.0"
+  dependencies:
+    "@semantic-release/error": "npm:^4.0.0"
+    aggregate-error: "npm:^5.0.0"
+    execa: "npm:^8.0.0"
+    fs-extra: "npm:^11.0.0"
+    lodash-es: "npm:^4.17.21"
+    nerf-dart: "npm:^1.0.0"
+    normalize-url: "npm:^8.0.0"
+    npm: "npm:^10.5.0"
+    rc: "npm:^1.2.8"
+    read-pkg: "npm:^9.0.0"
+    registry-auth-token: "npm:^5.0.0"
+    semver: "npm:^7.1.2"
+    tempy: "npm:^3.0.0"
+  peerDependencies:
+    semantic-release: ">=20.1.0"
+  checksum: 857972de2e9d5292c7d8434f073be125f34c5d355fe7a7f8fbde39c953fbe3b30ded6e1361512c31de3bc4378cb9529ce61eaa60bf9afcab00bd682b5d43c5ff
   languageName: node
   linkType: hard
 
@@ -14824,7 +14847,7 @@ __metadata:
     "@semantic-release/commit-analyzer": "npm:^11.1.0"
     "@semantic-release/git": "npm:^10.0.1"
     "@semantic-release/github": "npm:^9.2.6"
-    "@semantic-release/npm": "npm:^11.0.2"
+    "@semantic-release/npm": "npm:^12.0.0"
     "@semantic-release/release-notes-generator": "npm:^12.1.0"
     "@types/eslint": "npm:^8"
     "@types/react": "npm:^16.9.34"
