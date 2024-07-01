@@ -179,14 +179,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@astrojs/starlight-tailwind@npm:^2.0.1":
-  version: 2.0.1
-  resolution: "@astrojs/starlight-tailwind@npm:2.0.1"
+"@astrojs/starlight-tailwind@npm:^2.0.3":
+  version: 2.0.3
+  resolution: "@astrojs/starlight-tailwind@npm:2.0.3"
   peerDependencies:
     "@astrojs/starlight": ">=0.9.0"
     "@astrojs/tailwind": ^5.0.0
     tailwindcss: ^3.3.3
-  checksum: 1c39e603e5c7e2ce1037f1e532354d7c351b1d300710e82f5f9df544630741c65803dc9cf327553934a299f5eb1d16fc5cd10d20560812133ac51b7bf1b93bd4
+  checksum: 45b8c967e685bf3dc2e4d012b1c14728f407cc5939ba7a187895d708fdd8cb097993addcd59eddbe761c84135def26afa61ed2b6bcd376f34b630f4445b586f4
   languageName: node
   linkType: hard
 
@@ -6328,7 +6328,7 @@ __metadata:
     "@astrojs/check": "npm:^0.3.1"
     "@astrojs/react": "npm:^3.0.7"
     "@astrojs/starlight": "npm:^0.15.0"
-    "@astrojs/starlight-tailwind": "npm:^2.0.1"
+    "@astrojs/starlight-tailwind": "npm:^2.0.3"
     "@astrojs/tailwind": "npm:^5.0.3"
     "@types/react": "npm:^18.0.21"
     "@types/react-dom": "npm:^18.0.6"
